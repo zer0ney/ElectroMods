@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ElectroMods" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ElectronautsSteamPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="IsModded" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DiscordClientSecret" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">YOUR_DISCORD_CLIENT_SECRET_HERE</Value>
+    </Setting>
+    <Setting Name="DiscordAccessToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DiscordUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DiscordUserId" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

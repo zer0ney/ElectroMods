@@ -1,0 +1,105 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Icons\icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <!-- Single-file executable configuration for Release builds -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfContained>true</IncludeNativeLibrariesForSelfContained>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <PublishReadyToRun>false</PublishReadyToRun>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\discord-square-icon.png" />
+    <None Remove="Icons\logo.png" />
+    <None Remove="Icons\search.png" />
+    <None Remove="Icons\songs.png" />
+    <None Remove="Icons\manage.png" />
+    <None Remove="Icons\settings.png" />
+    <None Remove="Icons\about.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\discord-square-icon.png" />
+    <Resource Include="Icons\logo.png" />
+    <Resource Include="Icons\search.png" />
+    <Resource Include="Icons\songs.png" />
+    <Resource Include="Icons\manage.png" />
+    <Resource Include="Icons\settings.png" />
+    <Resource Include="Icons\about.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Plugins\" />
+    <None Include=".github\ISSUE_TEMPLATE\bug_report.md" />
+    <None Include=".github\ISSUE_TEMPLATE\feature_request.md" />
+    <None Include=".github\pull_request_template.md" />
+  </ItemGroup>
+
+  <!-- Copy the plugin if it exists (excluded from single-file bundle) -->
+  <ItemGroup Condition="Exists('Plugins\ElectroModsPatcher.dll')">
+    <None Include="Plugins\ElectroModsPatcher.dll" CopyToOutputDirectory="PreserveNewest">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </None>
+  </ItemGroup>
+
+  <!-- Copy BepInEx if it exists (excluded from single-file bundle) -->
+  <ItemGroup Condition="Exists('BepInEx\BepInEx_x64.zip')">
+    <None Include="BepInEx\BepInEx_x64.zip" CopyToOutputDirectory="PreserveNewest">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </None>
+  </ItemGroup>
+
+  <!-- Copy BepInEx license if it exists (required by LGPL-2.1, excluded from single-file bundle) -->
+  <ItemGroup Condition="Exists('BepInEx\LICENSE')">
+    <None Include="BepInEx\LICENSE" CopyToOutputDirectory="PreserveNewest">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </None>
+  </ItemGroup>
+	
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <!-- Automatically publish when building Release configuration -->
+  <Target Name="PublishOnBuild" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+	  <Exec Command="dotnet publish &quot;$(MSBuildProjectFullPath)&quot; --configuration Release --no-build --output &quot;$(OutputPath)publish&quot;" />
+  </Target>
+
+
+</Project>
