@@ -4,6 +4,9 @@
 
 **A Community-Driven Song Manager for Electronauts VR**
 
+## NOTE: This repo is archived and the backend has been deprecated for some time, so no custom songs can be uploaded or downloaded. This pretty much just exists as a proof-of-concept now. Sorry!
+
+
 ### First Time Setup
 
 1. **Launch ElectroMods** - Run the application
